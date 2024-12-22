@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+{% load static %}
+
+{% block content %}
+<form action="" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+{{edit_blog.as_p}}
+
+<button type="submit" class = "btn btn-success" value= "Update">Update</button>
+
+
+
+{% if messages %}
+    {% for message in messages %}
+    <div {% if message.tags %} class = "success success-{{message.tags}}" {% endif %}></div>
+    <strong>{{message}}</strong>
+    {% endfor %}
+{% endif %}
+</form>
+<a href="{% url 'dashboard' %}"><button type="submit" class = "btn btn-success mt-2" value= "Update">Cancel</button></a>
+
+{% endblock %}

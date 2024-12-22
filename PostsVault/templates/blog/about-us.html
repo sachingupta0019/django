@@ -1,0 +1,66 @@
+{% extends "layout.html" %}
+{% load static %}
+
+{% block title %} About-US {% endblock title %}
+
+{% block content %} 
+
+<div id="carouselExampleIndicators" class="carousel slide">
+    <div class="carousel-indicators">
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    </div>
+    <div class="carousel-inner" style= " height: 500px;">
+      <div class="carousel-item active">
+        <img src="{% static '/images/mindfullnes-blog.jpg' %}" class="d-block w-100" alt="...">
+      </div>
+      <div class="carousel-item">
+        <img src="{% static '/images/Plan-checklist-blog.jpg' %}" class="d-block w-100" alt="...">
+      </div>
+      <div class="carousel-item">
+        <img src="{% static '/images/tim-arterbury-blog.jpg' %}" class="d-block w-100" alt="...">
+      </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+
+  <hr>
+
+  <div class="card theme">
+    <div class="card-header">
+      About US
+    </div>
+    <div class="card-body">
+      <h5 class="card-title"><strong>Welcome to PostsVault</strong></h5>
+      <p class="card-text">PostsVault, your ultimate destination for insightful, engaging, and diverse content from around the world. At PostsVault, we believe in the power of words to inform, inspire, and connect. 
+        Whether you’re here for the latest trends, timeless advice, or thought-provoking perspectives, we’ve got something for everyone.</p>
+        <p><strong>Our Mission</strong>
+          Our mission is to create a platform where ideas meet creativity, and readers find a treasure trove of knowledge. We aim to empower writers and readers by fostering a community of shared learning and meaningful conversations.
+        </p>
+         <p>
+          <h5>What We Offer</h5>
+            <ul class="li">Diverse Topics:From technology and lifestyle to travel, health, and culture, PostsVault is a curated collection of knowledge for curious minds.</ul>
+            <ul class="li">Quality Content: Our team of dedicated contributors ensures that every post is informative, engaging, and relevant.
+            </ul>
+            <ul class="li">A Platform for Creators: We provide aspiring writers a space to share their voices and grow their audience.
+            </ul>
+        </p>
+          <p><strong>Why PostsVault?</strong><br>
+            At PostsVault, we understand that knowledge is a treasure, and we strive to make it accessible to all. Our name reflects our vision: a secure vault of invaluable posts waiting to be explored and shared.
+          </p>
+          <p><strong>Join Our Community</strong><br>
+            Become a part of the PostsVault family today. Whether you’re here to read, write, or simply explore, we promise to make your journey worthwhile. Together, let’s create a vault of stories, ideas, and inspiration that stands the test of time.
+          </p>
+ 
+    </div>
+  </div>
+
+{% endblock content %}

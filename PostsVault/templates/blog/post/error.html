@@ -1,0 +1,9 @@
+{% load static %}
+
+{% block content %}
+{% if messages %}
+    {% for msg in messages %}
+    <small class = "alert alert-danger"> {{msg}}</small>
+    {% endfor %}
+{% endif %}
+{% endblock %}

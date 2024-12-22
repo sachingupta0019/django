@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+
+{% block title %} Home {% endblock title %}
+
+{% block content %} 
+{% comment %} <div class="col-sm-12 my-5" style = "text-align: -webkit-center;"> {% endcomment %}
+  {% if post != '' %}
+    {% for blog in post %}
+  
+    <div class="card-body card-main">
+      <div class="projcard-container">      
+        <div class="projcard projcard-blue">
+          <div class="projcard-innerbox theme">
+            <img class="projcard-img" src="{{ blog.post_thumbnail.url }}" />
+            <div class="projcard-textbox">
+              <div class="projcard-title">{{blog.title}}</div>
+              <div class="projcard-bar"></div>
+              <div class="projcard-description">{{blog.excerpt}}... <a href="{% url 'viewPost' blog.post_slug %}" class="btn btn-sm">Read More</a></div>
+              <div class="projcard-tagbox">
+                <span class="projcard-tag ">{{blog.post_tag}}</span>
+              </div>
+            </div>
+          </div>
+      </div>
+    </div>
+    {% endfor %}
+  {% else %}
+    <h3 class="no-record">No Record Found.</h3>
+  {% endif %}
+</div>
+
+{% endblock content %}

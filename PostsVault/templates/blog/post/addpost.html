@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+{% load static %}
+
+
+{% block content %}
+<div class="col-sm-10">
+    <h3 class="text-white my-5">Dashboard - Create New Post</h3>
+    <form action="" method="post" enctype="multipart/form-data" novalidate>
+        {% csrf_token %}
+        {% if NewBlog != '' %}
+            {% for blogs in NewBlog %}
+            <div class="mb-3">
+                {{blogs.label_tag}} {{blogs}} <small class="text-warning">{{blogs.errors | striptags}}</small>
+            </div>
+            {% endfor %}
+        {% else %}
+        <div class="blog-error">
+            <h3>No Blog Found.</h3>
+        </div>
+        {% endif %}
+        <button type="submit" class='btn btn-success' value = "Create">Create</button>
+
+        {% if blogs.non_field_errors %}
+            {% for error in blogs.non_field_errors %}
+            <p class="alert alert-danger my-3"> {{error}} </p>
+            {% endfor %}
+        {% endif %}
+    </form>
+</div>
+
+{% endblock content %}

@@ -1,0 +1,39 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <title>{% block title %} {% endblock title %}</title>
+</head>
+<body>
+    <main>
+        <div class="container-fuild bg-dark">
+            {% include 'blog/navbar.html' %}
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    {% block msg %}
+                    {% endblock msg %}
+                </div>
+            <div class="row">
+
+                {% block side %}{% endblock side %}
+                {% block content %}{% endblock content %}
+            </div>
+
+
+            </div>
+        </div>
+
+
+    </main>    
+    <script src="{% static 'js/bootstrap.js'%}"></script>
+    <script src="{% static 'js/jquery.js'%}"></script>
+    <script src="{% static 'js/popper.js'%}"></script>
+    <script src="{% static 'js/script.js'%}"></script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+{% extends "layout.html" %}
+
+{% block title %} Dashboard {% endblock title %}
+
+{% block msg %}
+    {% if messages %}
+        {% for message in messages %}
+            <div {% if message.tags %} class = "alert alert-{{message.tags}} alert-dismissible fade show"{% endif %} >
+                <strong>{{message}}</strong>
+                <button type="button" class="close" data-dismiss = "alert" aria-label = "Close">
+                    <span aria-hidden = "true">&times;</span>
+                </button>
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endblock msg %}
+
+
+{% block content %}
+<h3 class="text-white my-5"><a href="{% url 'createPost' %}" class="btn btn-outline-info">Create Blog</a></h3>
+
+{% if post != "" %}
+    {% for posts in post %}
+        <div class="blog-wrapper ">
+            <div class="blog-card theme">
+                <div class="card-img-dashboard img-fluid">
+                    <img src="{{posts.post_image.url}}" class="img-dashboard">
+                </div>
+                <h6 class="card-title badge text-bg-primary">{{posts.author_name}}</h6>
+                <div class="card-details theme">
+                    <span><i class="fa fa-calendar"></i>{{posts.last_update | date}}</span>
+                    <span><i class="fa fa-heart"></i>{{posts.views}}</span>
+                </div>
+                <div class="card-text"><p>{{posts.excerpt}}</p></div>
+                <div class="read-more">
+                    <a href="{% url 'viewPost' posts.post_slug %}" class="btn btn-sm">Read More</a>
+                </div>
+            </div>
+        </div>
+
+    {% endfor %}
+{% else %}
+    <p>No Record Found</p>
+{% endif %}
+
+
+{% endblock content %}
+
+
