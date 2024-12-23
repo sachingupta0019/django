@@ -98,22 +98,6 @@ def user_logout(request):
     logout(request)
     return HttpResponseRedirect('/')
 
-# Change Password Form 
-# def user_changePassword(request):
-#     if request.method == "POST":
-#         user_change_password = PasswordChangeForm(user = request.user, data = request.POST)
-#         if user_change_password.is_valid():
-#             user_change_password.save()
-#             # update_session_auth-hash(request, user_change_password.user)
-#             return HttpResponseRedirect('/')
-#         else:
-#             return HttpResponse('Invalid user')
-#     else:
-#         user_change_password = PasswordChangeForm(user = request.user)
-#         return render(request, 'user/changepassword.html', {'change_password' : user_change_password })
-        
-
-
 # Create New Blog Post
 def add_post(request):
     if request.user.is_authenticated:
