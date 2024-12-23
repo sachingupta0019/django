@@ -25,9 +25,6 @@ def contact_us(request):
 def dashboard(request):
     if request.user.is_authenticated:
         post = BlogPost.objects.all()
-        # blog_posts = get_object_or_404(BlogPost)
-        # for posts in blog_posts:
-        #     posts.excerpt = get_excerpt(posts.content, 30)
         user = request.user
         full_name = user.get_full_name()
         return render(request, 'blog/dashboard.html',{'post' : post, 'full_name' : full_name})
