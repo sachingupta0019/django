@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+
+{% block title %}Search Results{% endblock %}
+
+{% block content %}
+<h1>Search Results for Query : {{search_query}}</h1>
+
+{% if search_results %}
+    {% for posts in search_results %}
+    <div class="blog-wrapper ">
+        <div class="blog-card theme">
+            <div class="card-img-dashboard img-fluid">
+                <img src="{{posts.post_image.url}}" class="img-dashboard">
+            </div>
+            <h6 class="card-title badge text-bg-primary">{{posts.author_name}}</h6>
+            <div class="card-details theme">
+                <span><i class="fa fa-calendar"></i>{{posts.last_update | date}}</span>
+                <span><i class="fa fa-heart"></i>{{posts.views}}</span>
+            </div>
+            <div class="card-text"><p>{{posts.excerpt}}</p></div>
+            <div class="read-more">
+                <a href="{% url 'viewPost' posts.post_slug %}" class="btn btn-sm">Read More</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+
+
+
+{% else %}
+    <h2>No Post Found.</h2>
+{% endif %}
+{% endblock content %}

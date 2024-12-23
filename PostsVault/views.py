@@ -6,6 +6,7 @@ from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import Group
+from django.db.models import Q
 
 # Create your views here.
 def home(request):
@@ -41,7 +42,15 @@ def viewPost(request, slug = None):
         view_post = get_list_or_404(BlogPost, post_slug = slug)
         return render(request,'blog/post/viewpost.html',{'view_post': view_post})
 
-
+# Blog Post Search results Page View
+def search_post(request):
+    search_query = request.GET.get('q')
+    if search_query:
+        results = BlogPost.objects.filter(
+            Q(title__icontains=search_query) | Q(content__icontains=search_query))
+    else:
+        results = []
+    return render(request, 'blog/post/search_blog.html', {'search_query' : search_query,'search_results' : results})
 
 # User Registration
 def user_registration(request):
@@ -88,6 +97,21 @@ def user_login(request):
 def user_logout(request):
     logout(request)
     return HttpResponseRedirect('/')
+
+# Change Password Form 
+# def user_changePassword(request):
+#     if request.method == "POST":
+#         user_change_password = PasswordChangeForm(user = request.user, data = request.POST)
+#         if user_change_password.is_valid():
+#             user_change_password.save()
+#             # update_session_auth-hash(request, user_change_password.user)
+#             return HttpResponseRedirect('/')
+#         else:
+#             return HttpResponse('Invalid user')
+#     else:
+#         user_change_password = PasswordChangeForm(user = request.user)
+#         return render(request, 'user/changepassword.html', {'change_password' : user_change_password })
+        
 
 
 # Create New Blog Post
