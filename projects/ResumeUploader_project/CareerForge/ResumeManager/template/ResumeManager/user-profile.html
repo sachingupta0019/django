@@ -1,0 +1,35 @@
+{% extends 'layout.html' %}
+{% load static %}
+{% load custom_filter %}
+{% block title %}{% endblock title %}
+
+{% block content %}
+    <h2 class ="text-center bg-danger p-3"> Profile</h2>
+    <div class="row">
+        <div class="col-sm-10 shadow p-4 offset-sm-1">
+            <h3 class="text-center pb-5"><u>Resume</u></h3>
+            {% for candidate in user %}                   
+                <p class="badge text-bg-primary float-end">
+                    Application No <span class="badge text-bg-secondary">{{candidate.id}}</span>
+                </p>
+                <img class="img-fluid img-thumbnail mt-5 float-end" src="{{candidate.profile_img.url}}" target="_blank">                     
+                <p class=""> Name : {{candidate.name}}</p>              
+                <p class=""> E-mail : {{candidate.email_id}}</p>              
+                <p class=""> Phone No : {{candidate.phone_no}}</p>              
+                <p class=""> Date of Birth : {{candidate.dob | date:"F j, Y" }}</p>              
+                <p class=""> Gender : {{candidate.gender}}</p>              
+                <p class=""> Address : {{candidate.landmark}}, {{candidate.city}}, {{candidate.zip_code}}, 
+                                            {{candidate.state}}, {{candidate.country}}</p>                                              
+                <p class=""> Preferred Loaction : {{candidate.preferred_location | remove_special_char:"[]'"}}</p>              
+                <p class=""> Attachement : <a href = "{{candidate.user_file.url}}" target="_blank">Download File</a></p>      
+                <a href="{% url 'update' candidate.id %}" class="btn btn-info float-end">Edit</a>                     
+            {% endfor %}  
+                <div class="text-center">
+                    <a href="{% url 'index' %}" class="btn btn-danger">Home</a>   
+                </div>           
+        </div>
+        <!-- <div class="col-sm-2">
+            <h1 class="text-center">Resume Manager</h1>
+        </div> -->
+    </div>
+{% endblock %}

@@ -1,0 +1,16 @@
+#id_gender, #id_preferred_location{
+    display: inline-flex;
+    /* gap: 5px; */
+}
+
+#id_gender > div{
+    padding-left: 10px;
+}
+#id_preferred_location > div{
+    padding-left: 10px;
+}
+
+.img-thumbnail{
+    height: 150px !important;
+    width: 150px !important;
+}
