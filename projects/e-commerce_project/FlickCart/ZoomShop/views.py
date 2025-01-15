@@ -1,18 +1,33 @@
+from unicodedata import category
 from django.shortcuts import render
+from django.http import HttpResponseRedirect 
+from .models import ProductDB, CustomerDB, PlacedOrderDB, CartDB
+from django.views import View
 
 # Create your views here.
 
-def home(request):
- return render(request, 'product/home.html')
+# ********* Home Page ********** #
+class ProductView(View):
+ def get(self, request):
+  topwears = ProductDB.objects.filter(category = "TW")
+  bottomwears = ProductDB.objects.filter(category = "BW")
+  mobiles = ProductDB.objects.filter(category = "M")
+  return render(request, 'product/home.html', {'topwears':topwears, 'bottomwears':bottomwears, 'mobiles':mobiles})
 
-def product_detail(request):
- return render(request, 'product/productdetail.html')
-
+# ********* Product Detail page ********** #
+class ProductDetailView(View):
+ def get(self, request, id):
+  product = ProductDB.objects.get(pk = id)
+  return render(request, 'product/Productdetail.html', {'product' : product})
+  
+  
+# ********* Add to Cart Page ********** #
 def add_to_cart(request):
  return render(request, 'orders/addtocart.html')
 
 def buy_now(request):
  return render(request, 'orders/buynow.html')
+
 
 def profile(request):
  return render(request, 'customer/profile.html')
@@ -26,8 +41,19 @@ def orders(request):
 def change_password(request):
  return render(request, 'customer/changepassword.html')
 
-def mobile(request):
- return render(request, 'product/mobile.html')
+# def mobile(request):
+#  return render(request, 'product/mobile.html')
+class MobileView(View):
+ def get(self, request, slug = None):
+  if slug == None: 
+   mobile_page = ProductDB.objects.filter(category="M")
+  elif slug == 'MicroMax' or slug == 'Apple':
+   mobile_page = ProductDB.objects.filter(category="M").filter(brand = slug)
+  elif slug == 'below':
+   mobile_page = ProductDB.objects.filter(category="M").filter(discounted_price__lt = 30000)
+  elif slug == 'above':
+   mobile_page = ProductDB.objects.filter(category="M").filter(discounted_price__gt = 30000)
+  return render(request, 'product/mobile.html', {'mobile_page' : mobile_page})
 
 def login(request):
  return render(request, 'customer/login.html')
