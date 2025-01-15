@@ -55,6 +55,20 @@ class MobileView(View):
    mobile_page = ProductDB.objects.filter(category="M").filter(discounted_price__gt = 30000)
   return render(request, 'product/mobile.html', {'mobile_page' : mobile_page})
 
+class ClothWearView(View):
+ def get(self, request, slug = None):
+  if slug == None:
+   qs1 = ProductDB.objects.filter(category = "BW")
+   qs2 = ProductDB.objects.filter(category = "TW")
+   clothes_page = qs2.union(qs1)
+  elif slug == "BW":
+   clothes_page = ProductDB.objects.filter(category = "BW")
+  elif slug == 'TW':
+   clothes_page = ProductDB.objects.filter(category = "TW")
+  elif slug == 'ShilpVastra' or slug == "Polo" or slug =="Velvet":
+   clothes_page = ProductDB.objects.all().filter(brand = slug)
+  return render(request, 'product/clothing.html', {"clothes_page" : clothes_page})
+
 def login(request):
  return render(request, 'customer/login.html')
 
