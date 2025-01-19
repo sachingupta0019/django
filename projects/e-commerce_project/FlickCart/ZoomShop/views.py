@@ -1,7 +1,9 @@
 from django.shortcuts import render
-from django.http import HttpResponseRedirect 
+from django.http import HttpResponse, HttpResponseRedirect 
 from .models import ProductDB, CustomerDB, PlacedOrderDB, CartDB
 from django.views import View
+from .forms import UserRegistrationForm
+from django.contrib import messages
 
 # Create your views here.
 
@@ -40,8 +42,6 @@ def orders(request):
 def change_password(request):
  return render(request, 'customer/changepassword.html')
 
-# def mobile(request):
-#  return render(request, 'product/mobile.html')
 class MobileView(View):
  def get(self, request, slug = None):
   if slug == None: 
@@ -68,11 +68,24 @@ class ClothWearView(View):
    clothes_page = ProductDB.objects.all().filter(brand = slug)
   return render(request, 'product/clothing.html', {"clothes_page" : clothes_page})
 
+# Customer Login Request
 def login(request):
  return render(request, 'customer/login.html')
 
-def customerregistration(request):
- return render(request, 'customer/customerregistration.html')
+# Customer Registration Request
+class CustomerRegistrionView(View):
+ def get(self, request) :
+  form = UserRegistrationForm()
+  return render(request, 'customer/customerregistration.html', {'form':form})
+ 
+ def post(self, request):
+  form = UserRegistrationForm(request.POST)
+  if form.is_valid():
+   messages.success(request, "Congratualtions!, Registered Successfully.")
+   form.cleaned_data
+   user = form.save()
+  return render(request, 'customer/customerregistration.html', {'form':form})
+
 
 def checkout(request):
  return render(request, 'orders/checkout.html')
