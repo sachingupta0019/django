@@ -1,11 +1,18 @@
 {% extends "layout.html" %}
 {% load static %}
-{% block title %}{% endblock title %}
+{% block title %}
+
+{% endblock title %}
 
 {% block content %}
         <h1 class="bg-danger text-center p-3"><u>Resume Manager</u></h1>
         <div class="row">
             <div class="col-sm-8">
+                {% if messages %}
+                {% for message in messages %}
+                    <p {% if message.tags %} class = "alert alert-{{message.tags}} mb-5"{% endif %}>{{message}} </p>
+                {% endfor %}
+                {% endif %}
                 <form action="" method = "POST" enctype = "multipart/form-data" class = "shadow p-5">
                     {% csrf_token %}
                     {% for fm in form %}

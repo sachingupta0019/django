@@ -52,32 +52,43 @@
              </ul>
            </li>
          </ul>
-         <form class="d-flex">
+         <form class="d-flex" method='post'>
+          
            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
            <button class="btn btn-warning" type="submit">S</button>
          </form>
+
          <div>
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            {% if request.user.is_authenticated %}
            <li class="nav-item dropdown mx-2">
               <a class="nav-link dropdown-toggle text-white" href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Sonam
+                {{request.user}}
               </a>
               <ul class="dropdown-menu" aria-labelledby="profileDropdown">
                 <li><a class="dropdown-item" href="{% url 'profile' %}">Profile</a></li>
                 <li><a class="dropdown-item" href="{% url 'orders' %}">Orders</a></li>
                 <li><a class="dropdown-item" href="{% url 'changepassword' %}">Change Password</a></li>
-                <li><a class="dropdown-item" href="#">Logout</a></li>
+                {% comment %} <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li> {% endcomment %}
+                <li>
+                  <form method="post" action="{% url 'logout' %}" style="display:inline;">
+                      {% csrf_token %}
+                      <button type="submit" class="dropdown-item">Logout</button>
+                  </form>
+              </li>
               </ul>
             </li>
             <li class="nav-item mx-2">
              <a href="{% url 'add-to-cart' %}" class="nav-link text-white"><span class="badge bg-danger">4</span> Cart </a>
             </li>
+            {% else %}
             <li class="nav-item mx-2">
              <a href="{% url 'login' %}" class="nav-link text-white">Login</a>
             </li>
             <li class="nav-item mx-2">
              <a href="{% url 'customerregistration' %}" class="nav-link text-white">Registration</a>
             </li>
+            {% endif %}
           </ul>
          </div>
        </div>
@@ -89,7 +100,7 @@
 
     <!-- Start Footer -->
     <footer class="container-fluid bg-dark text-center p-2 mt-5">
-        <small class="text-white">Copyright &copy; 2025 || Designed By Sachin Gupts || </small>
+        <small class="text-white">Copyright &copy; 2025 || Designed By Sachin Gupta || </small>
         <img src="{% static 'ZoomShop/images/payment.png' %}" alt="" srcset="" class="img-fluid" height="2px">
     </footer> <!-- End Footer -->
 

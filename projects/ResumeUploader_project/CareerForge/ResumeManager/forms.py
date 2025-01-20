@@ -14,7 +14,7 @@ jOB_LOCATION_CHOICES = [
     ('Banglore', 'Banglore'),
 ]
 class ResumeForm(forms.ModelForm):
-    gender = forms.ChoiceField(choices=GENDER_CHOICES, widget=forms.RadioSelect(attrs={'class': ''}))
+    gender = forms.ChoiceField(choices=GENDER_CHOICES, widget=forms.RadioSelect(attrs={'class': ''}), error_messages={'required' : 'Please select a choice.'})
     preferred_location = forms.MultipleChoiceField(choices=jOB_LOCATION_CHOICES, widget=forms.CheckboxSelectMultiple)
     class Meta:
         model = Resume
@@ -37,7 +37,7 @@ class ResumeForm(forms.ModelForm):
             'city' : forms.TextInput(attrs={'class' : 'form-control'}),
             'zip_code' : forms.TextInput(attrs={'class' : 'form-control'}),
             'state' : forms.Select(attrs={'class' : 'form-select',}),
-            'user_file' : forms.ClearableFileInput(attrs={'class' : 'form-control', 'type' : 'download'}),
+            'user_file' : forms.ClearableFileInput(attrs={'class' : 'form-control'}),
             'profile_img' : forms.ClearableFileInput(attrs={'class' : 'form-control'}),
             'country' : forms.TextInput(attrs={'class' : 'form-control'}),
         }

@@ -68,9 +68,6 @@ class ClothWearView(View):
    clothes_page = ProductDB.objects.all().filter(brand = slug)
   return render(request, 'product/clothing.html', {"clothes_page" : clothes_page})
 
-# Customer Login Request
-def login(request):
- return render(request, 'customer/login.html')
 
 # Customer Registration Request
 class CustomerRegistrionView(View):
