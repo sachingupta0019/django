@@ -39,8 +39,6 @@ def address(request):
 def orders(request):
  return render(request, 'orders/orders.html')
 
-def change_password(request):
- return render(request, 'customer/changepassword.html')
 
 class MobileView(View):
  def get(self, request, slug = None):
