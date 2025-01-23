@@ -121,8 +121,8 @@ STATIC_FILES_DIRS = [BASE_DIR / 'ZoomShop/static']
 
 Media_URL = '/media/'
 Media_ROOT = BASE_DIR / 'media'
-print(Media_ROOT)
 
+LOGIN_REDIRECT_URL = '/profile/'
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
