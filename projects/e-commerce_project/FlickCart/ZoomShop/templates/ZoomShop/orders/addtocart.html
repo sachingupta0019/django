@@ -4,50 +4,35 @@
 {% block main-content %}
 <div class="container my-5">
  <div class="row">
-  <h1 class="text-center mb-5">Shopping Cart</h1>
+  <h1 class="text-center mb-5">Cart</h1>
   <div class="col-sm-8">
   <div class="card">
    <div class="card-body">
-    <h3>Cart</h3>
+    {% if products %}
     <div class="row">
-     <div class="col-sm-3 text-center align-self-center"><img src="{% static 'ZoomShop/images/product/1.jpg'%}" alt="" srcset="" class="img-fluid img-thumbnail shadow-sm" height="150" width="150"> </div>
+      {% for cart_product in products %}
+     <div class="col-sm-3 text-center align-self-center">    
+      <img src="{{cart_product.product.product_image.url}}" alt="" srcset="" class="img-fluid img-thumbnail shadow-sm" height="200" width="200"> 
+    </div>
      <div class="col-sm-9">
-      <div>
-       <h5>Product 1</h5>
-       <p class="mb-2 text-muted small">Description: Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum quas, nihil vel velit sed, quos consequatur maiores odio libero eius est in mollitia quo minus dolorum culpa consectetur, ipsam unde!</p>
-       <div class="my-3">
+      <div>      
+       <h5>{{cart_product.product.title}}</h5>    
+       <p class="mb-2 text-muted small">{{cart_product.product.description|slice:120}}</p>
+       <div class="my-3">    
         <label for="quantity">Quantity:</label>
         <a class="minus-cart btn"><i class="fas fa-minus-square fa-lg"></i></a>
-          <span id="quantity">3</span>
+          <span id="quantity">{{cart_product.quantity}}</span>
         <a class="plus-cart btn"><i class="fas fa-plus-square fa-lg"></i></a>
        </div> 
        <div class="d-flex justify-content-between">
         <a href="#" class="btn btn-sm btn-secondary mr-3">Remove item </a>
-        <p class="mb-0"><span><strong>Rs. 110.00</strong></span></p>
+        <p class="mb-0"><span><strong>{{cart_product.product.discounted_price}}</strong></span></p>
        </div>
       </div>
      </div>
-    </div>
-    <hr class="text-muted">
-    <div class="row my-5">
-     <div class="col-sm-3 text-center align-self-center"> <img src="{% static 'ZoomShop/images/product/2.jpg'%}" alt="" srcset="" class="img-fluid img-thumbnail shadow-sm" height="150" width="150"></div>
-     <div class="col-sm-9"> 
-      <div>
-       <h5>Product 2</h5>
-       <p class="mb-2 text-muted small">Description: Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio corrupti repudiandae quas tenetur? Vel harum iste impedit ad cupiditate sint soluta consequuntur sed, enim, eligendi labore molestiae! Mollitia, ad exercitationem!</p>
-       <div class="my-3">
-        <label for="quantity">Quantity:</label>
-        <a class="minus-cart btn"><i class="fas fa-minus-square fa-lg"></i></a>
-          <span id="quantity">2</span>
-        <a class="plus-cart btn"><i class="fas fa-plus-square fa-lg"></i></a>
-       </div> 
-       <div class="d-flex justify-content-between">
-        <a href="#" class="btn btn-sm btn-secondary mr-3">Remove item </a>        
-        <p class="mb-0"><span><strong>Rs. 320.00</strong></span></p>
-       </div>
-      </div>
-     </div>
-    </div>
+     <hr class="text-muted my-3">   
+     {% endfor %}
+    </div> 
    </div>
    </div>
   </div>
@@ -55,15 +40,17 @@
   <div class="col-sm-4">
    <div class="card">
     <div class="card-body">
-      <h3>The Total Amount of</h3>
+      <h3>Price  Details</h3>
       <ul class="list-group">
-       <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">Amount<span>Rs. 430.00</span></li>
-       <li class="list-group-item d-flex justify-content-between align-items-center px-0">Shipping<span>Rs. 70.00</span></li>
+       <li class="list-group-item d-flex justify-content-between align-items-center px-0 p-2">Price<span>Rs. {{amount| floatformat:2}}</span></li>
+       <li class="list-group-item d-flex justify-content-between align-items-center px-0 p-2">Discount<span>Rs. {{discount|default:"0.0"}}</span></li>
+       <li class="list-group-item d-flex justify-content-between align-items-center px-0 p-2">Delivery Charges<span>Rs. 70.00</span></li>
        <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
         <div>
-           <strong>Total</strong> <small>(including VAT)</small>
+           <em>Amount Payable</em><br>
+           <small>(including 28% GST)</small>
          </div>
-         <span><strong>Rs. 500.00</strong></span>
+         <span><strong>Rs. {{total_amount | floatformat:2}}</strong></span>
        </li>
       </ul>
       <div class="d-grid"><a href="{% url 'checkout' %}" class="btn btn-primary">Place Order</a></div>
@@ -81,8 +68,13 @@
       <h5 class="mb-4">We accept</h5>
       <img src="{% static 'ZoomShop/images/payment.png' %}" alt="" class="img-fluid">
     </div>
+    {% else %}
+    <div class="card">
+      <h3 class="card-body text-center"><i>Cart is Empty</i></h1>
+    </div>
   </div>
   </div>
  </div>
 </div>
+{% endif %}
 {% endblock main-content %}
