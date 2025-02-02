@@ -4,6 +4,9 @@ from .models import ProductDB, CustomerDB, PlacedOrderDB, CartDB
 from django.views import View
 from .forms import UserRegistrationForm, UserLoginForm, UserProfileForm
 from django.contrib import messages
+from django.db.models import Q
+from django.http import JsonResponse
+
 # Create your views here.
 
 # ********* Home Page ********** #
@@ -48,6 +51,70 @@ def show_cart(request):
   else:
    return render(request, 'orders/addtocart.html')
  
+def plusCart(request):
+ if request.method == 'GET':
+  prod_id = request.GET['prod_id']
+  c = CartDB.objects.get(Q(product = prod_id) & Q(user = request.user))
+  c.quantity += 1
+  c.save()
+
+  amount = 0
+  shipping_charges = 70
+  # discount = 0.0
+  cart_product = [prod for prod in CartDB.objects.all() if prod.user == request.user]
+  for p in cart_product:
+    total_amount_temp = (p.quantity * p.product.discounted_price) 
+    amount += total_amount_temp
+  
+  data = {
+  "quantity" : c.quantity,
+  "amount" : amount,
+  "total_amount" : amount + shipping_charges
+  }
+  return JsonResponse(data)
+
+def minusCart(request):
+ if request.method == 'GET':
+  prod_id = request.GET['prod_id']
+  c = CartDB.objects.get(Q(product=prod_id) & Q(user = request.user))
+  c.quantity -= 1
+  c.save()
+
+  amount = 0
+  shipping_charges = 70
+  # discount = 0.0
+  cart_product = [prod for prod in CartDB.objects.all() if prod.user == request.user]
+  for p in cart_product:
+    total_amount_temp = (p.quantity * p.product.discounted_price) 
+    amount += total_amount_temp
+
+  data = {
+  "quantity" : c.quantity,
+  "amount" : amount,
+  "total_amount" : amount + shipping_charges
+  }
+  return JsonResponse(data)
+
+
+def removeCart(request):
+ if request.method == 'GET':
+  prod_id = request.GET['prod_id']
+  c = CartDB.objects.get(Q(product = prod_id) & Q(user = request.user))
+  c.delete()
+
+  amount = 0
+  shipping_charges = 70
+  # discount = 0.0
+  cart_product = [prod for prod in CartDB.objects.all() if prod.user == request.user]
+  for p in cart_product:
+    total_amount_temp = (p.quantity * p.product.discounted_price) 
+    amount += total_amount_temp
+
+  data = {
+  "amount" : amount,
+  "total_amount" : amount + shipping_charges
+  }
+  return JsonResponse(data)
 
 
 # ********* Buy  ********** #

@@ -18,7 +18,11 @@ urlpatterns = [
     path('mobile/<slug:slug>', views.MobileView.as_view(), name='mobile_page'),
     path('clothes/', views.ClothWearView.as_view(), name='clothes'),
     path('clothes/<slug:slug>', views.ClothWearView.as_view(), name='clothes_page'),
+    # Cart
     path('checkout/', views.checkout, name='checkout'),
+    path('pluscart/', views.plusCart),
+    path('minuscart/', views.minusCart),
+    path('removecart/', views.removeCart),
     # Customer Authentication
     path('registration/', views.UserRegistrationFormView.as_view(), name='customerregistration'),
     path('accounts/login/', auth_views.LoginView.as_view(template_name='customer/login.html', authentication_form=UserLoginForm), name='login'),

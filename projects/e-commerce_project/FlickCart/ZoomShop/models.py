@@ -70,7 +70,7 @@ class ProductDB(models.Model):
     discounted_price = models.FloatField()
     description = models.TextField()
     brand = models.CharField(max_length=128)
-    category = models.CharField(choices=CATEGORY_CHOICES, max_length=10)  # noqa: F811
+    category = models.CharField(choices=CATEGORY_CHOICES, max_length=10)
     product_image = models.ImageField(upload_to='media/productImage')
 
     def __str__(self):
@@ -81,7 +81,7 @@ class ProductDB(models.Model):
 
 class CartDB(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    product = models.ForeignKey(ProductDB, on_delete=models.CASCADE)  # noqa: F811
+    product = models.ForeignKey(ProductDB, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(default=1)
 
     def __str__(self):
@@ -97,7 +97,7 @@ ORDER_PLACED_CHOICES = (
 class PlacedOrderDB(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     customer = models.ForeignKey(CustomerDB, on_delete=models.CASCADE)
-    product = models.ForeignKey(ProductDB, on_delete=models.CASCADE)  # noqa: F811
+    product = models.ForeignKey(ProductDB, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(default=1)
     order_placed_date  = models.DateField(auto_now_add=True)
     order_delivered_date = models.DateField(auto_now_add=True)
